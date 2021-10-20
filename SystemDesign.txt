@@ -75,4 +75,14 @@ c) there is very popular music app that has been relased in US, and there is a p
     3. check resource usage ex if any memory leak
 
           
+        
+(6) 1.        给一个cpu, ram的图判断有什么问题，cpu曲线上升，ram一条直线？
+    Memory leaks happen when your code needs to consume memory in your application, which should be released after a given task is completed but isn't.
+    2. thread exhausted的表现有哪些
+    3. race condition
+    oop：
+    1. 继承 vs 组合 的区别
+    Inheritance and composition are two programming techniques developers use to establish relationships between classes and objects. Whereas inheritance derives one class from another, composition defines a class as the sum of its parts.
+    2. 比较什情况下用继承 / 组合
+    3. 什么是 依赖注入，那种情况下需要使用 依赖注入
           

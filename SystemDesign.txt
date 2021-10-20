@@ -56,5 +56,20 @@ cons：
 c) there is very popular music app that has been relased in US, and there is a plan to launch this app in international countries. Q: list some considerations focused on the backed system when the app is going to launched in international areas.
 1， data shard
 2, 在其他地方建数据中心
+
+(5) 在一个server上有一个process同时处理多个video，现在发现同时处理超过10个video就会出错，但不知道具体bug是什么。问在debug期间有哪些workaround。
+   Threadpool; process; tracing for the CPU usage, and print special logs.
+   
+   if on production,
+    1. check SLA
+    2. quickly check server logs and trace the cause
+    2. at the same time, adding more servers on production and update LB to buy some time for the time being
+    3. check resource related config in the server/system and see if correct
+    4. if cannot identify the root cause easily on production, get issues back to the team and call a war room
+    then on dev env
+    1. reproduce the issue on dev env
+    2. trace issues in code, server config, and also deployment
+    3. check resource usage ex if any memory leak
+
           
           

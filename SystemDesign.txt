@@ -34,6 +34,17 @@
     2，主要就是答least connection balance, consistence hashing可能会给已经很busy的server又转发链接
     ：ound ronbin 两个缺点，第一默认所有server的处理能力相当。如果有的server比较强悍，有的server比较弱鸡，会造成资源浪费。
     
+    (7)个人面经：
+1. System design (15min)
+两道题, chat format. 面试官会copy一段题目，要阅读理解
+a. 就是那个什么facebook两个table；一个user table；一个friendship table；需要计算user有多少friend。请问如何scale up。
+我就回答如果普通情况下直接SQL; 但scale up的话，就要存cache。面试官继续会问cache里存什么data
+
+b. 一个document只能发送给一个server；一个server可以process multiple docs。Load balancer用round-robin在发送document request。请问这在scale up角度有什么问题。
+回答：consistent hashing. 一旦需要增加server数量(scale up), round-robin方式里hashing key都会改变，所有的docs->server对应关系都要大大改变，会是巨大的cost (比如存了cache)。所以要用circular structure,  just assign docs to the next server on the circle, which will be minimally affected by server scale-up.
+感觉面试官自己好像也不是很懂的样子。。。
+
+    
      round ronbin不考虑number of connection request a server received。
     比如一个server上的doc有很多人同时访问，那么有新的doc进来的时候最好就不要再发到这个server上，改进方法Least Connection load balancing。
     3，music存在一个服务器上可能会single point failure

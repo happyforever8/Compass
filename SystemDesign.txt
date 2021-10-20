@@ -8,3 +8,53 @@
   改进方法Least Connection load balancing。
   or using consitent hashing
 
+(3)given 5 topics to choose 2, ood / production issue / frontend / testing / system hardware
+     1) production issue: a digram showing memory leak; how to scale tps for a global hosted db and third-party apis
+     
+     using master/slave --- all read go to master
+                        ---- all write got to slave
+     different region, try to use differnt db. add a load balance before the api, redirectly to the region db
+     
+     2) ood: composition & inheritance; what is dependency injection
+     
+          Inheritance is an "is-a" relationship. Composition is a "has-a". 
+          Car has a Engine and Car is a Automobile
+          
+          Using DI, we move the creation and binding of the dependent 
+          objects outside of the class that depends on them using configration or annotation.
+          
+(4) there is music app and a load balancing server, the LB server forwards the music uploading (write)
+    request to 100 database server by the consistent hashing strategry, and 
+    the each server can store the same anount of music, 
+    Q: List the bottleneck and issues of this design.
+    1, google doc那道题的变种
+    2，主要就是答least connection balance, consistence hashing可能会给已经很busy的server又转发链接
+    ：ound ronbin 两个缺点，第一默认所有server的处理能力相当。如果有的server比较强悍，有的server比较弱鸡，会造成资源浪费。
+    
+     round ronbin不考虑number of connection request a server received。
+    比如一个server上的doc有很多人同时访问，那么有新的doc进来的时候最好就不要再发到这个server上，改进方法Least Connection load balancing。
+    3，music存在一个服务器上可能会single point failure
+
+b) there is mobile pazzle game that run on the mobile phone.
+    This app can provide the hints to this game to users, there are two options 
+    to store the hints 1) the hints are stored in the remote server and everytime 
+    the hints need to be fetched from remote server,
+    2) the hints are stored in the local mobile phone, everytime
+    the hints can be loaded from mobile directly. 
+    Q: list the disadvantages and advantages of these two schemas
+1, 存服务器上
+pros:
+  手机端会变得简单和轻量级
+cons:
+  万一玩着玩着，服务器挂掉，你的hint也就丢了
+2，存手机上
+pros:
+   不会存在hint丢的问题
+cons：
+    preload可能会耗时
+
+c) there is very popular music app that has been relased in US, and there is a plan to launch this app in international countries. Q: list some considerations focused on the backed system when the app is going to launched in international areas.
+1， data shard
+2, 在其他地方建数据中心
+          
+          

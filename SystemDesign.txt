@@ -1,4 +1,7 @@
-第一题2个table，存friend 和relationship，如何支持Facebook scale的query..  
+第一题2个table，存friend 和relationship，如何支持Facebook scale的query.. 
+
+  给user table加个column，叫做 totalFriends,
+  然后给relationship table 加个trigger，每当有insert 或delete event，update totalFriends for corresponding user(s)
 
 (2)第二题，一个在线文档处理系统，LB是round Robin 分发个service，每个文件不能split，有什么问题，如果recover 如果service down了。
 

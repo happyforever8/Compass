@@ -86,11 +86,9 @@ public class WordSearch {
         }
         visited[i][j] = true;
         result.add(new int[]{i, j});
-        
+        // You can only traverse to the right or bottom.
         if (helper(board, visited, i + 1, j, index + 1, word, result)||
-                helper(board, visited, i - 1, j, index + 1, word, result)||
-                helper(board, visited, i, j + 1, index + 1, word, result)||
-                helper(board, visited, i, j - 1, index + 1, word, result)){
+                helper(board, visited, i, j + 1, index + 1, word, result)){
                  return true;
              } 
         visited[i][j] = false;

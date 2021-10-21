@@ -50,70 +50,32 @@ input[0] 是input[1] 的parent，⽐如
       
 (3)第三问是 就⼀个点的最远祖先
 
-int findEarliestAncestor(vector<pair<int, int>> parentChildPairs, int a, int b){
-  
-  unordered_map<int, vector<int>> m; //k is child, v is parent
-  unordered_map<int, int> parent;  //record all parents/distance from particular node 
-  
-    for(int i=0;i<parentChildPairs.size();i++){
-    int child = parentChildPairs[i].second;
-    int parent = parentChildPairs[i].first;
-    m[child].push_back(parent);
-  }
-  
-  queue<int> q; //1 parent, 2 is distance
-  
-  int step = 1;
-  for(auto j: m[a]){
-    q.push(j);
-    parent[j] = step;
-  }
-  
-    //BFS all node a's ancestor
-  while(!q.empty()){
-    int cur = q.front();
-    q.pop();
-    step++;
-    for(auto j: m[cur]){
-      q.push(j);
-      parent[j] = step;
-    }
-    
-  }
-  //BFS all node b's 
-  int earilest = 0;
-  int ret = -1;
-  
-  for(auto j: m[b]){
-      if(parent.find(j)!=parent.end()){
-        if(parent[j]>earilest){
-          earilest = parent[j];
-          ret = j;
+
+      public static boolean findEarliestAncestor(int[][] edges, int a){
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for(int[] edge:edges){
+            int parent = edge[0];
+            int child = edge[1];
+            map.putIfAbsent(child, new ArrayList<>());
+            map.get(child).add(parent);
         }
-      }
-      
-      q.push(j);
-
-  }
-  
-  
-  while(!q.empty()){
-    int cur = q.front();
-    q.pop();
-    for(auto j: m[cur]){
-      q.push(j);
-      if(parent.find(j)!=parent.end()){
-        if(parent[j]>earilest){
-          earilest = parent[j];
-          ret = j;
+        dfs(map, a, new int[]{2}, 0);
+        
+        return res[1];
         }
-      }
+   // 第三问：一个点的最远祖先，感觉就是用DFS做
+    // int[] res来作为helper int[]， res[0] = 当前level, res[1]就是当前level的ancestor。用来打擂台
+    public static void dfs(Map<Integer, List<Integer>> map, int a, int[] res, int level){
+        if(level > res[0]){
+            // find a higher ancestor
+            // update highest level and hightes ancestor
+            res[0] = level;
+            res[1] = a;
+        }
+        List<Integer> parents = map.get(a);
+        if(parents != null && parents.size()!=0){
+            for(int parent:parents){
+                dfs(map, parent, res, level+1);
+            }
+        }
     }
-    
-  }
-  
-  return ret;
-  
-}
-
-

@@ -76,11 +76,6 @@ output: {
 
 class Solution {
   public static void main(String[] args) {
-    ArrayList<String> strings = new ArrayList<String>();
-    strings.add("Hello, World!");
-    strings.add("Welcome to CoderPad.");
-    strings.add("This pad is running Java " + Runtime.version().feature());
-
     for (String string : strings) {
       System.out.println(string);
     }
@@ -89,28 +84,14 @@ class Solution {
     String[][] records = {{"Jame", "1300"}, {"Martha", "1600"}, {"Martha", "1620"}, {"Martha", "1530"}}; 
     
     
-    String[][] records1 = {
-{"Paul", "1355"},
-{"Jennifer", "1910"},
-{"John", "830"},
-{"Paul", "1315"},
-{"John", "1615"},
-{"John", "1640"},
-{"John", "835"},
-{"Paul", "1405"},
-{"John", "855"},
-{"John", "930"},
-{"John", "915"},
-{"John", "730"},
-{"Jennifer", "1335"},
-{"Jennifer", "730"},
-{"John", "1630"},
-};
+    String[][] records1 = {{"Paul", "1355"},{"Jennifer", "1910"},{"John", "830"},{"Paul", "1315"},{"John", "1615"},{"John", "1640"},{"John", "835"},{"Paul", "1405"},
+                         {"John", "855"},{"John", "930"},{"John", "915"},{"John", "730"},{"Jennifer", "1335"},{"Jennifer", "730"},{"John", "1630"},};
     frequentAccess(records1);
     
   }
   
   public static Map<String, List<String>> frequentAccess(String[][] records){
+   // key is name, vlaue is the list of enter time
     Map<String, List<String>> result = new HashMap<>();
     
     if (records == null || records.length == 0){

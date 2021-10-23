@@ -108,8 +108,10 @@ c) there is very popular music app that has been relased in US, and there is a p
 
           
         
-(6) 1.        给一个cpu, ram的图判断有什么问题，cpu曲线上升，ram一条直线？
-    Memory leaks happen when your code needs to consume memory in your application, which should be released after a given task is completed but isn't.
+(6) 1. 给一个cpu, ram的图判断有什么问题，cpu曲线上升，ram一条直线？
+          Memory leaks happen when your code needs to consume memory 
+          in your application, which should be released after a given task is completed but isn't.
+          
     2. thread exhausted的表现有哪些
     3. race condition
     oop：
@@ -125,15 +127,36 @@ c) there is very popular music app that has been relased in US, and there is a p
 `select * from a where col1 in (select id from b where ...) and ...`
 
 
-1.        给一个cpu, ram的图判断有什么问题，cpu曲线上升，ram一条直线？
-Memory leaks happen when your code needs to consume memory in your application, which should be released after a given task is completed but isn't.
-2. thread exhausted的表现有哪些
-3. race condition
+1.给一个cpu, ram的图判断有什么问题，cpu曲线上升，ram一条直线？
+      Memory leaks happen when your code needs to consume memory in your application, which should be released after a given task is completed but isn't.
+      2. thread exhausted的表现有哪些
+      3. race condition
 oop：
 1. 继承 vs 组合 的区别
-Inheritance and composition are two programming techniques developers use to establish relationships between classes and objects. Whereas inheritance derives one class from another, composition defines a class as the sum of its parts.
-2. 比较什情况下用继承 / 组合
-3. 什么是 依赖注入，那种情况下需要使用 依赖注入
+      Inheritance and composition are two programming techniques developers use to establish relationships between classes and objects. Whereas inheritance derives           one class from another, composition defines a class as the sum of its parts.
+      2. 比较什情况下用继承 / 组合
+      3. 什么是 依赖注入，那种情况下需要使用 依赖注入
 
-Karat 店面， 5分钟聊简历，10分钟答小问题，问题有6个topic， 选了production 和 oop
-都不难回答，production的问题有给一个cpu和ram的performance的图，是关于memory leak的， oop有聊composition vs inheritance, how to document the code什么的
+General Programming
+      1. what is the principle in oop that xxx：忘记具体问题了，大致就是问你oop里哪个principle使得xxx。我回答encapsulation
+      2. 给你4个场景问应该选择哪种数据结构
+      - hierarchical file system
+      - support redo/undo
+      - process message in sequential order
+      - represent bool in memory-constrained space
+      3. 忘记了
+      
+      The Four Principles of Object-Oriented-Programming (OOP):
+       Encapsulation
+             Encapsulation is accomplished when each object 
+             maintains a private state, inside a class. Other objects can not access this state directly, 
+       Abstraction
+             Abstraction is an extension of encapsulation. It is the process 
+             of selecting data from a larger pool to show only the relevant details to the object. 
+       Inheritance
+            Inheritance is the ability of one object to acquire some/all 
+            properties of another object. For example, a child inherits the traits of his/her parents. 
+       Polymorphism
+          olymorphism gives us a way to use a class exactly like its parent 
+          so there is no confusion with mixing types. This being said, each child sub-class keeps       
+          its own functions/methods as they are. 

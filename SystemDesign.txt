@@ -1,22 +1,22 @@
-第一题2个table，存friend 和relationship，如何支持Facebook scale的query.. 
+(1)第一题2个table，存friend 和relationship，如何支持Facebook scale的query.. 
 
-  给user table加个column，叫做 totalFriends,
-  然后给relationship table 加个trigger，每当有insert 或delete event，update totalFriends for corresponding user(s)
+      给user table加个column，叫做 totalFriends,
+      然后给relationship table 加个trigger，每当有insert 或delete event，update totalFriends for corresponding user(s)
 
 (2)第二题，一个在线文档处理系统，LB是round Robin 分发个service，每个文件不能split，有什么问题，如果recover 如果service down了。
 
-答：round ronbin 两个缺点，第一默认所有server的处理能力相当。如果有的server比较强悍，有的server比较弱鸡，会造成资源浪费。
-  round ronbin不考虑number of connection request a server received。
-  比如一个server上的doc有很多人同时访问，那么有新的doc进来的时候最好就不要再发到这个server上，
-  改进方法Least Connection load balancing。
-  or using consitent hashing
+    答：round ronbin 两个缺点，第一默认所有server的处理能力相当。如果有的server比较强悍，有的server比较弱鸡，会造成资源浪费。
+      round ronbin不考虑number of connection request a server received。
+      比如一个server上的doc有很多人同时访问，那么有新的doc进来的时候最好就不要再发到这个server上，
+      改进方法Least Connection load balancing。
+      or using consitent hashing
 
 (3)given 5 topics to choose 2, ood / production issue / frontend / testing / system hardware
      1) production issue: a digram showing memory leak; how to scale tps for a global hosted db and third-party apis
      
-     using master/slave --- all read go to master
+             using master/slave --- all read go to master
                         ---- all write got to slave
-     different region, try to use differnt db. add a load balance before the api, redirectly to the region db
+            different region, try to use differnt db. add a load balance before the api, redirectly to the region db
      
      2) ood: composition & inheritance; what is dependency injection
      
@@ -25,6 +25,24 @@
           
           Using DI, we move the creation and binding of the dependent 
           objects outside of the class that depends on them using configration or annotation.
+          
+ (3—1）系统社稷问答题：
+    1. 有个server fleet可以处理video，一个server只能处理10个，然后突然有bug发生了，问fix bug的时候怎么保证正常serve traffic.
+        1） 每个server fleet 有个backup的 server， 万一bug，rediect traffict to backup server
+            可以用consistent hashing 保证 equal distribution
+    2. 有10000个vendor machine，他们每天凌晨1点定时给server发信息 update，问这个设计有什么问题..
+          有俩问题，1 只有一个server 接受request 2. 1万台售货机同一时间发。
+
+                  1. 只有一台server 处理所有的request。容易造成single point of failure. 发送失败
+                  2. 同一时间发，对服务器压力承受能力是个考验。网络负载（band width）也是。
+
+          解决方法，分时间段发送。如果不行，多搞几个server。
+    3. 有个service可以支持用户上传照片视频，然后有个链接可以分享给别人。问用username shard有啥问题？follow up应该用啥shard.
+        问题是：1） 用户上传了很多照片，这些照片会存在一个server
+               2）如果链接很多人分享，for example，lady gaga，会造成存lady gaga 的server load很大，
+              
+              用照片的id shard，然后用consistent hashing来分布存照片。。。
+
           
 (4) there is music app and a load balancing server, the LB server forwards the music uploading (write)
     request to 100 database server by the consistent hashing strategry, and 

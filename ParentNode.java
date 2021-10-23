@@ -29,6 +29,37 @@ input[0] 是input[1] 的parent，⽐如
         }
         return result;
     }
+    
+
+   **************如果input是
+    List<List<Integer>> findNodesWithZeroAndOneParents(int[][] parentChildPairs)
+       
+       
+      public List<List<Integer>>  findNode(List<int[]> relationships){
+        Map<Integer, Integer> degree = new HashMap();
+        for(int i = 0; i < relationships.size(); i++){
+            int[] curr = relationships.get(i);
+            degree.put(curr[1], degree.getOrDefault(curr[1], 0) + 1);
+            degree.putIfAbsent(curr[0], 0);
+        }
+       List<List<Integer>>  result = new ArrayList<>();
+        List<Integer> result0 = new ArrayList();
+       List<Integer> result1 = new ArrayList();
+        for(Map.Entry<Integer, Integer> entry : degree.entrySet()){
+            int val = entry.getValue();
+            if(val == 0 ){
+                result0.add(entry.getKey());
+            }
+            if (val == 0 ){
+                result1.add(entry.getKey());
+            }
+        }
+          
+        result.add(result0);
+        result.add(result1);
+        return result;
+    }
+       
   (2)两个指定的点有没有公共祖先 (Time: O(N) , Space: O(N) ) return boolean
       public static boolean commonAncestor2(int[][] pairs, int node1, int node2){
           Set<Integer> p1 = new HashSet<>(), p2 = new HashSet<>();

@@ -43,36 +43,64 @@
 // 0 of 1  The Best Hollywood Coats
 // 3 of 3  Buy wool coats for your pets
 
-completedId = ["3123122444", "234111110", "8321125440", "99911063"]
+completedUsers = ["3123122444", "234111110", "8321125440", "99911063"]
 
 adClicks = ["122.121.0.1,2016-11-03 11:41:19,Buy wool coats for your pets",
            "96.3.199.11,2016-10-15 20:18:31,2017 Pet Mittens", "122.121.0.250,2016-11-01 06:13:13,The Best Hollywood Coats", 
           "82.1.106.8,2016-11-12 23:05:14,Buy wool coats for your pets", "92.130.6.144,2017-01-01 03:18:55,Buy wool coats for your pets", "92.130.6.145,2017-01-01 03:18:55,2017 Pet Mittens"]
-allUser = ["2339985511,122.121.0.155", "234111110,122.121.0.1", "3123122444,92.130.6.145",
+allUserIp = ["2339985511,122.121.0.155", "234111110,122.121.0.1", "3123122444,92.130.6.145",
 "39471289472,2001:0db8:ac10:fe01:0000:0000:0000:0000", "8321125440,82.1.106.8", "99911063,92.130.6.144"]
 
-print(sol.ad_conversion(completedId, adClicks, allUser))
- 
-  
-  const userIds = new Set(completedPurchaseUserIds);
-  const conversion = new Map();
-  const ipToUserId = new Map();
-  for (const userIp of allUserIps) {
-    const [userId, ip] = userIp.split(',');
-    ipToUserId.set(ip, userId);
-  }
-  for (const click of adClicks) {
-    const [ip,, adText] = click.split(',');
-    if (conversion.has(adText)) {
-      conversion.get(adText)[1]++;
-      if (userIds.has(ipToUserId.get(ip))) {
-        conversion.get(adText)[0]++;
-      }
-    } else {
-      const bought = userIds.has(ipToUserId.get(ip)) ? 1 : 0;
-      conversion.set(adText, [bought, 1]);
+This is my solution in Java with Time O(n)
+
+import java.util.*;
+
+public class HelloWorld{
+
+     public static void main(String []args){
+        System.out.println("Hello World");
+        
+        String[] completedUsers = {"3123122444", "234111110", "8321125440", "99911063"};
+
+String[] adClicks = {"122.121.0.1,2016-11-03 11:41:19,Buy wool coats for your pets",
+           "96.3.199.11,2016-10-15 20:18:31,2017 Pet Mittens", "122.121.0.250,2016-11-01 06:13:13,The Best Hollywood Coats", 
+          "82.1.106.8,2016-11-12 23:05:14,Buy wool coats for your pets", "92.130.6.144,2017-01-01 03:18:55,Buy wool coats for your pets", "92.130.6.145,2017-01-01 03:18:55,2017 Pet Mittens"};
+String[] allUserIp = {"2339985511,122.121.0.155", "234111110,122.121.0.1", "3123122444,92.130.6.145",
+"39471289472,2001:0db8:ac10:fe01:0000:0000:0000:0000", "8321125440,82.1.106.8", "99911063,92.130.6.144"};
+            
+            
+ List<String> users = Arrays.asList(completedUsers);
+  getAdCount(adClicks, allUserIp, users);
+
+     }
+
+     
+private static  void getAdCount(String[] adClicks, String[] allUserIps, List<String> completedUsers) {
+// Hashmap to store the Ad names and the list of IPs that clicked on the Ad
+Map<String, List<String>> ads = new HashMap<>();
+
+    for (String adClick : adClicks) {
+        String[] currAdClick = adClick.split(",");            
+        if (!ads.containsKey(currAdClick[2]))
+        {
+            ads.put(currAdClick[2], new ArrayList<>(Arrays.asList(new String[]{currAdClick[0]})));
+        } else {
+               ads.get(currAdClick[2]).add(currAdClick[0]);
+        }
     }
-  }
-  for (const [adText, ratio] of conversion) {
-    console.log(`${ratio[0]} of ${ratio[1]}  ${adText}`);
-  }
+    System.out.println(ads.toString());
+    System.out.println(completedUsers.toString());
+    
+    for (Map.Entry<String, List<String>> entry : ads.entrySet()) {
+        String key = entry.getKey();
+        List<String> value = entry.getValue();
+        int count = 0;
+       for (String allUserIp: allUserIps) {
+           if (value.contains(allUserIp.substring(allUserIp.indexOf(",") + 1)) &&   completedUsers.contains(allUserIp.substring(0, allUserIp.indexOf(",")))) {
+               count++;
+           }
+       }
+       System.out.println(count + " of " + value.size() + " " + entry.getKey());
+    }
+}
+}

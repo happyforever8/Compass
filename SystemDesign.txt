@@ -2,6 +2,9 @@
 
       给user table加个column，叫做 totalFriends,
       然后给relationship table 加个trigger，每当有insert 或delete event，update totalFriends for corresponding user(s)
+      非要存SQL的话，Friendship表可以按照user id来做partition，这样可以实现scale up。
+      
+      我就回答如果普通情况下直接SQL; 但scale up的话，就要存cache。面试官继续会问cache里存什么data
 
 (2)第二题，一个在线文档处理系统，LB是round Robin 分发个service，每个文件不能split，有什么问题，如果recover 如果service down了。
 

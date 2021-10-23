@@ -106,7 +106,7 @@ public class WordSearch {
 }
 
 
-
+（3）Word Search.  ===== 查看是否能够找到
 
 
 class Solution {

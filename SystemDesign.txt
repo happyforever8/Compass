@@ -1,14 +1,17 @@
 (1)第一题2个table，存friend 和relationship，如何支持Facebook scale的query.. 
 
       给user table加个column，叫做 totalFriends,
-      然后给relationship table 加个trigger，每当有insert 或delete event，update totalFriends for corresponding user(s)
+      然后给relationship table 加个trigger，每当有insert 
+      或delete event，update totalFriends for corresponding user(s)
       非要存SQL的话，Friendship表可以按照user id来做partition，这样可以实现scale up。
       
       我就回答如果普通情况下直接SQL; 但scale up的话，就要存cache。面试官继续会问cache里存什么data
 
-(2)第二题，一个在线文档处理系统，LB是round Robin 分发个service，每个文件不能split，有什么问题，如果recover 如果service down了。
+(2)第二题，一个在线文档处理系统，LB是round Robin 分发个service，
+    每个文件不能split，有什么问题，如果recover 如果service down了。
 
-    答：round ronbin 两个缺点，第一默认所有server的处理能力相当。如果有的server比较强悍，有的server比较弱鸡，会造成资源浪费。
+    答：round ronbin 两个缺点，第一默认所有server的处理能力相当。
+       如果有的server比较强悍，有的server比较弱鸡，会造成资源浪费。
       round ronbin不考虑number of connection request a server received。
       比如一个server上的doc有很多人同时访问，那么有新的doc进来的时候最好就不要再发到这个server上，
       改进方法Least Connection load balancing。
@@ -19,7 +22,8 @@
      
              using master/slave --- all read go to master
                         ---- all write got to slave
-            different region, try to use differnt db. add a load balance before the api, redirectly to the region db
+            different region, try to use differnt db. add a 
+            load balance before the api, redirectly to the region db
      
      2) ood: composition & inheritance; what is dependency injection
      
@@ -61,13 +65,19 @@
 a. 就是那个什么facebook两个table；一个user table；一个friendship table；需要计算user有多少friend。请问如何scale up。
 我就回答如果普通情况下直接SQL; 但scale up的话，就要存cache。面试官继续会问cache里存什么data
 
-b. 一个document只能发送给一个server；一个server可以process multiple docs。Load balancer用round-robin在发送document request。请问这在scale up角度有什么问题。
-回答：consistent hashing. 一旦需要增加server数量(scale up), round-robin方式里hashing key都会改变，所有的docs->server对应关系都要大大改变，会是巨大的cost (比如存了cache)。所以要用circular structure,  just assign docs to the next server on the circle, which will be minimally affected by server scale-up.
+b. 一个document只能发送给一个server；一个server可以process multiple docs。
+   Load balancer用round-robin在发送document request。请问这在scale up角度有什么问题。
+回答：consistent hashing. 一旦需要增加server数量(scale up), 
+round-robin方式里hashing key都会改变，所有的docs->server对应关系都要大大改变，
+会是巨大的cost (比如存了cache)。所以要用circular structure, 
+just assign docs to the next server on the circle, 
+which will be minimally affected by server scale-up.
 感觉面试官自己好像也不是很懂的样子。。。
 
     
      round ronbin不考虑number of connection request a server received。
-    比如一个server上的doc有很多人同时访问，那么有新的doc进来的时候最好就不要再发到这个server上，改进方法Least Connection load balancing。
+    比如一个server上的doc有很多人同时访问，那么有新的doc进来的时候最好就不要再发到这个server上，
+    改进方法Least Connection load balancing。
     3，music存在一个服务器上可能会single point failure
 
 b) there is mobile pazzle game that run on the mobile phone.
@@ -88,7 +98,10 @@ pros:
 cons：
     preload可能会耗时
 
-c) there is very popular music app that has been relased in US, and there is a plan to launch this app in international countries. Q: list some considerations focused on the backed system when the app is going to launched in international areas.
+c) there is very popular music app that has been relased in US, 
+    and there is a plan to launch this app in international countries. 
+    Q: list some considerations focused on the backed system 
+    when the app is going to launched in international areas.
 1， data shard
 2, 在其他地方建数据中心
 
@@ -116,7 +129,9 @@ c) there is very popular music app that has been relased in US, and there is a p
     3. race condition
     oop：
     1. 继承 vs 组合 的区别
-    Inheritance and composition are two programming techniques developers use to establish relationships between classes and objects. Whereas inheritance derives one class from another, composition defines a class as the sum of its parts.
+    Inheritance and composition are two programming techniques
+    developers use to establish relationships between classes and objects.
+    Whereas inheritance derives one class from another, composition defines a class as the sum of its parts.
     2. 比较什情况下用继承 / 组合
     3. 什么是 依赖注入，那种情况下需要使用 依赖注入
     
@@ -133,7 +148,10 @@ c) there is very popular music app that has been relased in US, and there is a p
       3. race condition
 oop：
 1. 继承 vs 组合 的区别
-      Inheritance and composition are two programming techniques developers use to establish relationships between classes and objects. Whereas inheritance derives           one class from another, composition defines a class as the sum of its parts.
+      Inheritance and composition are two programming techniques developers 
+      use to establish relationships between classes and objects. 
+      Whereas inheritance derives          
+      one class from another, composition defines a class as the sum of its parts.
       2. 比较什情况下用继承 / 组合
       3. 什么是 依赖注入，那种情况下需要使用 依赖注入
 
